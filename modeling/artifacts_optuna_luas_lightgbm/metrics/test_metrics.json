@@ -1,0 +1,10 @@
+{
+  "target": "luas_km2",
+  "test_MAE": 210.81560982095723,
+  "test_RMSE": 383.8723955069841,
+  "test_R2": 0.3318310786914692,
+  "best_val_RMSE": 275.48850460306886,
+  "n_trials": 50,
+  "best_iteration": 196,
+  "n_pruned_trials": 14
+}

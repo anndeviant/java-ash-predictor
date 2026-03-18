@@ -1,0 +1,8 @@
+{
+  "best_model": "extra_trees",
+  "selection_criteria": "0.4*val_R2 + 0.6*repeated_cv_R2; tie-breaker RMSE",
+  "cv_scheme": {
+    "n_splits": 4,
+    "n_repeats": 3
+  }
+}

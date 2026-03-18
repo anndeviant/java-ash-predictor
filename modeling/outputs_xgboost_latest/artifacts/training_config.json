@@ -1,0 +1,36 @@
+{
+  "data_path": "D:\\Projects\\volcanic_ash\\modeling\\java-ash-hysplit.csv",
+  "use_one_hot_volcano": true,
+  "test_size": 0.1,
+  "val_size": 0.1,
+  "random_state": 42,
+  "target_cols": [
+    "jarak_km",
+    "luas_km2",
+    "sudut_deg",
+    "radius_km"
+  ],
+  "feature_cols": [
+    "volcano_filter",
+    "alert_level",
+    "latitude",
+    "longitude",
+    "elevation",
+    "tinggi_letusan_m",
+    "kec_angin_km_jam",
+    "arah_angin_deg",
+    "amplitudo",
+    "duration",
+    "Bulan",
+    "Jam"
+  ],
+  "split_files": {
+    "train": "D:\\Projects\\volcanic_ash\\modeling\\outputs_xgboost_latest\\splits\\train.csv",
+    "val": "D:\\Projects\\volcanic_ash\\modeling\\outputs_xgboost_latest\\splits\\val.csv",
+    "test": "D:\\Projects\\volcanic_ash\\modeling\\outputs_xgboost_latest\\splits\\test.csv"
+  },
+  "global_metrics_test": {
+    "rmse": 73.38135649840493,
+    "r2": 0.7556068669331781
+  }
+}

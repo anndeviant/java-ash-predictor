@@ -1,0 +1,16 @@
+feature,importance
+timestamp,0.14421275
+volcano_filter_Raung,0.12838863
+volcano_filter_Semeru,0.12360788
+elevation,0.09456532
+latitude,0.093777284
+longitude,0.09134406
+tinggi_letusan_m,0.0828887
+alert_level,0.055063847
+kec_angin_km_jam,0.052692138
+amplitudo,0.043513387
+arah_angin_deg,0.041481804
+duration,0.033958048
+volcano_filter_Bromo,0.0145062115
+volcano_filter_Merapi,0.0
+volcano_filter_Slamet,0.0

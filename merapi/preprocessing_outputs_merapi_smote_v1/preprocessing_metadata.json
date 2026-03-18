@@ -1,0 +1,37 @@
+{
+  "data_path": "merapi-ash-hysplit.csv",
+  "target_cols": [
+    "jarak_km",
+    "luas_km2",
+    "sudut_deg",
+    "radius_km"
+  ],
+  "selected_feature_cols": [
+    "eruption_energy_proxy",
+    "tinggi_letusan_m",
+    "plume_to_elevation_ratio",
+    "month",
+    "month_cos",
+    "wind_plume_interaction",
+    "amplitudo",
+    "wind_u",
+    "month_sin",
+    "wind_v",
+    "kec_angin_km_jam",
+    "hour_cos",
+    "alert_level_num",
+    "alert_level"
+  ],
+  "split_ratio": {
+    "train": 0.6,
+    "val": 0.2,
+    "test": 0.2
+  },
+  "scaler_type": "standard",
+  "augmentation": {
+    "method": "smote_style_regression_knn_interpolation",
+    "aug_multiplier": 135,
+    "n_neighbors": 7,
+    "focus_quantile": 0.7
+  }
+}

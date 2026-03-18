@@ -1,0 +1,12 @@
+process,duration_seconds
+train_model,2.2278760000008333
+plot_test_regression,1.0946106999999756
+save_splits,0.2988375000004453
+evaluate_and_save_metrics,0.08275009999852045
+load_data,0.03561059999992722
+standardize_data,0.014623999999457737
+save_scalers_and_metadata,0.0048076000002765795
+prepare_split_data,0.004547199998341966
+list_artifacts,0.003128800000922638
+setup_paths,0.0015050000001792796
+prepare_features_targets,0.0006739000000379747

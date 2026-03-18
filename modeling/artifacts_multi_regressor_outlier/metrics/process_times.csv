@@ -1,0 +1,11 @@
+process,duration_seconds
+train_model,0.8079190999997081
+save_splits,0.1306220000005851
+evaluate_and_save_metrics,0.0424710999996023
+standardize_data,0.01360210000166262
+load_data,0.0092304999998305
+save_scalers_and_metadata,0.003997300000264659
+list_artifacts,0.0027888000004168134
+split_data,0.002607000000352855
+prepare_features_targets,0.0025949999999284046
+setup_paths,0.0018894999993790407

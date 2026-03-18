@@ -1,0 +1,9 @@
+column,is_target,q1,q3,iqr,lower_bound,upper_bound,outlier_before,outlier_after,replaced_count,replaced_pct
+duration,False,107.0,134.0,27.0,66.5,174.5,112,0,112,6.56
+tinggi_letusan_m,False,500.0,800.0,300.0,50.0,1250.0,99,0,99,5.8
+kec_angin_km_jam,False,1.95,6.1,4.1499999999999995,-4.2749999999999995,12.325,28,0,28,1.64
+latitude,False,-8.10805,-8.10805,0.0,,,0,0,0,0.0
+longitude,False,112.92,112.92,0.0,,,0,0,0,0.0
+elevation,False,3676.0,3676.0,0.0,,,0,0,0,0.0
+arah_angin_deg,False,22.5,225.0,202.5,-281.25,528.75,0,0,0,0.0
+amplitudo,False,22.0,22.0,0.0,,,0,0,0,0.0

@@ -1,0 +1,45 @@
+{
+  "input_files": {
+    "train": "java_ash_train_augmented.csv",
+    "val": "java_ash_val.csv",
+    "test": "java_ash_test.csv"
+  },
+  "output_files": {
+    "train_encoded": "preprocessing_outputs_aug_v2\\java_ash_train_augmented_encoded.csv",
+    "val_encoded": "preprocessing_outputs_aug_v2\\java_ash_val_encoded.csv",
+    "test_encoded": "preprocessing_outputs_aug_v2\\java_ash_test_encoded.csv"
+  },
+  "alert_mapping": {
+    "Green": 0,
+    "Orange": 1,
+    "Red": 2,
+    "Yellow": 3
+  },
+  "volcano_categories": [
+    "Bromo",
+    "Merapi",
+    "Raung",
+    "Semeru"
+  ],
+  "encoded_columns": [
+    "id",
+    "timestamp",
+    "alert_level",
+    "latitude",
+    "longitude",
+    "elevation",
+    "tinggi_letusan_m",
+    "kec_angin_km_jam",
+    "arah_angin_deg",
+    "amplitudo",
+    "duration",
+    "jarak_km",
+    "luas_km2",
+    "sudut_deg",
+    "radius_km",
+    "volcano_filter_Bromo",
+    "volcano_filter_Merapi",
+    "volcano_filter_Raung",
+    "volcano_filter_Semeru"
+  ]
+}

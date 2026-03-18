@@ -1,0 +1,27 @@
+{
+  "lookback": 6,
+  "n_features": 38,
+  "targets": [
+    "jarak_km",
+    "luas_km2",
+    "radius_km",
+    "target_sudut_sin",
+    "target_sudut_cos"
+  ],
+  "train_seq_shape": [
+    1179,
+    6,
+    38
+  ],
+  "val_seq_shape": [
+    248,
+    6,
+    38
+  ],
+  "test_seq_shape": [
+    249,
+    6,
+    38
+  ],
+  "preprocessing_seconds": 0.3011434999998528
+}
