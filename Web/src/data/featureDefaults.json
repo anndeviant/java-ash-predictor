@@ -1,0 +1,8 @@
+{
+  "tinggi_letusan_m": 1000,
+  "kec_angin_km_jam": 5,
+  "arah_angin_deg": 90,
+  "amplitudo": 30,
+  "duration": 300,
+  "alert_level": "Orange"
+}
