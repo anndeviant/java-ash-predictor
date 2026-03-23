@@ -10,7 +10,7 @@ const StatusBanner = ({ validation }) => {
           : "border-rose-200 bg-rose-50 text-rose-800"
       )}
     >
-      <p className="font-semibold">Validasi Model</p>
+      <p className="font-semibold">Validasi Model (Harap sabar menunggu 0.1vCPU)</p>
       <p className="mt-1">
         {validation.message}. Model terdeteksi: {validation.actualModelName}.
       </p>
