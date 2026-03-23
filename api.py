@@ -49,6 +49,7 @@ DEFAULT_VOLCANO_MAPPING = {
 }
 DEFAULT_ALERT_LEVELS = ["Normal", "Waspada", "Siaga", "Awas"]
 
+
 class PredictionRequest(BaseModel):
     volcano_name: str = Field(min_length=1)
     tinggi_letusan_m: float = Field(ge=0)
@@ -114,20 +115,32 @@ def load_alert_level_options(data_path: Path) -> List[str]:
 
     try:
         df = pd.read_csv(data_path, usecols=["alert_level"])
-        options = sorted({str(v) for v in df["alert_level"].dropna().astype(str).tolist() if str(v).strip()})
+        options = sorted(
+            {
+                str(v)
+                for v in df["alert_level"].dropna().astype(str).tolist()
+                if str(v).strip()
+            }
+        )
         return options if options else default_alert_levels()
     except Exception:
         return default_alert_levels()
 
 
-def load_feature_defaults(data_path: Path, expected_input_columns: List[str]) -> Dict[str, object]:
+def load_feature_defaults(
+    data_path: Path, expected_input_columns: List[str]
+) -> Dict[str, object]:
     defaults: Dict[str, object] = {}
 
     if not data_path.exists():
         return defaults
 
     try:
-        usecols = [col for col in expected_input_columns if col in pd.read_csv(data_path, nrows=0).columns]
+        usecols = [
+            col
+            for col in expected_input_columns
+            if col in pd.read_csv(data_path, nrows=0).columns
+        ]
         if not usecols:
             return defaults
 
@@ -147,7 +160,9 @@ def load_feature_defaults(data_path: Path, expected_input_columns: List[str]) ->
     return defaults
 
 
-def destination_point(lat: float, lon: float, distance_km: float, bearing_deg: float) -> Tuple[float, float]:
+def destination_point(
+    lat: float, lon: float, distance_km: float, bearing_deg: float
+) -> Tuple[float, float]:
     lat1 = math.radians(lat)
     lon1 = math.radians(lon)
     bearing = math.radians(bearing_deg % 360)
@@ -217,7 +232,9 @@ def build_impact_visual_data(
         max_distance = max(max_distance, zone_radius)
 
         proximity_weight = clamp01(1.15 - radius_factor)
-        level_score = clamp01(base_severity * (0.75 + 0.5 * proximity_weight) * directional_weight)
+        level_score = clamp01(
+            base_severity * (0.75 + 0.5 * proximity_weight) * directional_weight
+        )
 
         polygons.append(
             {
@@ -254,7 +271,9 @@ def build_impact_visual_data(
             }
         )
 
-    centerline_lat, centerline_lon = destination_point(origin_lat, origin_lon, radius_km, center_bearing_deg)
+    centerline_lat, centerline_lon = destination_point(
+        origin_lat, origin_lon, radius_km, center_bearing_deg
+    )
     centerline = [
         {
             "path": [[origin_lon, origin_lat], [centerline_lon, centerline_lat]],
@@ -290,7 +309,9 @@ def build_impact_visual_data(
     return polygons, summary, points, centerline, metadata
 
 
-def infer_expected_input_columns(model, artifact_feature_columns: List[str]) -> List[str]:
+def infer_expected_input_columns(
+    model, artifact_feature_columns: List[str]
+) -> List[str]:
     if hasattr(model, "named_steps") and "preprocessor" in model.named_steps:
         preprocessor = model.named_steps["preprocessor"]
         if hasattr(preprocessor, "feature_names_in_"):
@@ -377,7 +398,7 @@ app = FastAPI(title="Volcanic Ash Prediction API", version="1.0.0")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://127.0.0.1:5173", "http://localhost:5173"],
+    allow_origins=["https://java-ash-predictor.vercel.app"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -408,7 +429,9 @@ def default_alert_levels() -> List[str]:
     return DEFAULT_ALERT_LEVELS.copy()
 
 
-def resolve_user_timezone(timezone_name: Optional[str], timezone_offset_minutes: Optional[int]):
+def resolve_user_timezone(
+    timezone_name: Optional[str], timezone_offset_minutes: Optional[int]
+):
     if timezone_name:
         try:
             return ZoneInfo(str(timezone_name))
@@ -421,7 +444,9 @@ def resolve_user_timezone(timezone_name: Optional[str], timezone_offset_minutes:
     return timezone.utc
 
 
-def fetch_wind_from_open_meteo(latitude: float, longitude: float, event_dt: datetime) -> Dict[str, float | str]:
+def fetch_wind_from_open_meteo(
+    latitude: float, longitude: float, event_dt: datetime
+) -> Dict[str, float | str]:
     base_url = (
         "https://archive-api.open-meteo.com/v1/archive"
         if event_dt.date() < datetime.now(timezone.utc).date()
@@ -443,7 +468,9 @@ def fetch_wind_from_open_meteo(latitude: float, longitude: float, event_dt: date
         with urlopen(url, timeout=20) as response:
             payload = json.loads(response.read().decode("utf-8"))
     except Exception as exc:
-        raise HTTPException(status_code=502, detail=f"Gagal mengambil data angin Open-Meteo: {exc}") from exc
+        raise HTTPException(
+            status_code=502, detail=f"Gagal mengambil data angin Open-Meteo: {exc}"
+        ) from exc
 
     hourly = payload.get("hourly", {})
     times = hourly.get("time", [])
@@ -451,7 +478,9 @@ def fetch_wind_from_open_meteo(latitude: float, longitude: float, event_dt: date
     directions = hourly.get("wind_direction_10m", [])
 
     if not times or not speeds or not directions:
-        raise HTTPException(status_code=502, detail="Data angin Open-Meteo tidak lengkap.")
+        raise HTTPException(
+            status_code=502, detail="Data angin Open-Meteo tidak lengkap."
+        )
 
     target_time = event_dt.strftime("%Y-%m-%dT%H:00")
     if target_time in times:
@@ -461,7 +490,9 @@ def fetch_wind_from_open_meteo(latitude: float, longitude: float, event_dt: date
         target_hour = event_dt.hour
         index = min(
             range(len(times)),
-            key=lambda i: abs(int(str(times[i]).split("T")[1].split(":")[0]) - target_hour),
+            key=lambda i: abs(
+                int(str(times[i]).split("T")[1].split(":")[0]) - target_hour
+            ),
         )
 
     return {
@@ -521,8 +552,12 @@ def predict(payload: PredictionRequest):
         raise HTTPException(status_code=400, detail="Volcano tidak dikenal.")
 
     latitude, longitude, _ = volcano_mapping[payload.volcano_name]
-    user_tz = resolve_user_timezone(payload.timezone_name, payload.timezone_offset_minutes)
-    local_event_dt = datetime(payload.year, payload.month, payload.day, payload.hour, 0, 0, tzinfo=user_tz)
+    user_tz = resolve_user_timezone(
+        payload.timezone_name, payload.timezone_offset_minutes
+    )
+    local_event_dt = datetime(
+        payload.year, payload.month, payload.day, payload.hour, 0, 0, tzinfo=user_tz
+    )
     event_dt_utc = local_event_dt.astimezone(timezone.utc)
 
     wind_observation = fetch_wind_from_open_meteo(
@@ -548,21 +583,27 @@ def predict(payload: PredictionRequest):
             wind_direction_deg=float(wind_observation["wind_direction_deg"]),
         )
     except ValueError as exc:
-        raise HTTPException(status_code=400, detail=f"Input tanggal/waktu tidak valid: {exc}") from exc
+        raise HTTPException(
+            status_code=400, detail=f"Input tanggal/waktu tidak valid: {exc}"
+        ) from exc
 
     input_row = input_row.reindex(columns=expected_input_columns, fill_value=0)
 
     try:
         prediction_values = model.predict(input_row)
     except Exception as exc:
-        raise HTTPException(status_code=500, detail=f"Gagal menjalankan prediksi: {exc}") from exc
+        raise HTTPException(
+            status_code=500, detail=f"Gagal menjalankan prediksi: {exc}"
+        ) from exc
 
     result_df = pd.DataFrame(prediction_values, columns=target_columns)
     result = result_df.iloc[0]
 
     radius_km = float(result.get("radius_km", 0.0))
     area_km2 = float(result.get("luas_km2", 0.0))
-    center_bearing_deg = float(result.get("sudut_deg", wind_observation["wind_direction_deg"]))
+    center_bearing_deg = float(
+        result.get("sudut_deg", wind_observation["wind_direction_deg"])
+    )
 
     polygons, summary, points, centerline, metadata = build_impact_visual_data(
         origin_lat=float(latitude),
@@ -573,7 +614,9 @@ def predict(payload: PredictionRequest):
         stats=impact_stats,
     )
 
-    prediction = {key: float(result[key]) for key in target_columns if key in result.index}
+    prediction = {
+        key: float(result[key]) for key in target_columns if key in result.index
+    }
 
     return {
         "prediction": prediction,
