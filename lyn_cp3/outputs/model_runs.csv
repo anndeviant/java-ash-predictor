@@ -1,2 +1,0 @@
-model,cv_r2_mean,cv_r2_std,cv_mae_mean,cv_rmse_mean,holdout_r2,holdout_mae,holdout_rmse,elapsed_seconds,candidate_checkpoint
-xgboost,0.7101626038551331,0.17606668139629755,33.67210521697998,147.42599008327517,0.8370257616043091,30.452980041503906,97.57533647937116,19.704656839370728,outputs\checkpoints\xgboost_candidate.pkl
