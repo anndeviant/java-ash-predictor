@@ -4,11 +4,11 @@ const PageHeader = () => {
       <div className="absolute -right-10 -top-10 h-28 w-28 rounded-full bg-amber-300/20 blur-2xl sm:-right-14 sm:-top-14 sm:h-44 sm:w-44" />
       <div className="absolute -bottom-8 left-8 h-24 w-24 rounded-full bg-sky-300/20 blur-2xl sm:-bottom-10 sm:left-12 sm:h-40 sm:w-40" />
       <div className="relative">
-        <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-slate-600 sm:text-xs sm:tracking-[0.18em]">
-          Dashboard Prediksi Abu Vulkanik (2 Jam Setelah Erupsi)
+        <p className="text-[10px] font-bold uppercase tracking-[0.14em] text-slate-600 sm:text-xs sm:tracking-[0.18em]">
+          Prediksi Multi-Output Berbasis Model XGBoost
         </p>
         <h1 className="mt-2 text-2xl font-extrabold leading-tight text-slate-900 sm:text-3xl md:text-4xl">
-          Prediksi Multi-Output Berbasis Model XGBoost
+          Dashboard Prediksi Abu Vulkanik (2 Jam Setelah Erupsi)
         </h1>
         <p className="mt-3 max-w-3xl text-xs leading-relaxed text-slate-700 sm:text-sm">
           Aplikasi web ini memakai backend API Python untuk inferensi model asli.
